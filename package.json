@@ -1,0 +1,84 @@
+{
+  "name": "vue-pdf-kit",
+  "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "prepare": "husky install",
+    "commit": "git-cz",
+    "preinstall": "npx only-pnpm"
+  },
+  "dependencies": {
+    "pdfjs-dist": "3",
+    "vue": "^3.3.4",
+    "vue-demi": "^0.14.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@tsconfig/node18": "^2.0.1",
+    "@types/jsdom": "^21.1.1",
+    "@types/node": "^18.16.17",
+    "@vitejs/plugin-legacy": "^5.3.2",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "@vue/test-utils": "^2.3.2",
+    "@vue/tsconfig": "^0.4.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.39.0",
+    "eslint-plugin-vue": "^9.11.0",
+    "husky": "^8.0.3",
+    "jsdom": "^22.1.0",
+    "lint-staged": "^13.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
+    "sass": "^1.63.6",
+    "typescript": "~5.0.4",
+    "vite": "^5.1.6",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-top-level-await": "^1.4.1",
+    "vitest": "^0.32.0",
+    "vue-tsc": "^1.6.5"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "lint-staged": {
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,}": [
+      "npm run lint",
+      "git add",
+      "eslint --cache --fix"
+    ],
+    "*.src/": "prettier --write"
+  },
+  "packageManager": "pnpm@8.6.10",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "pnpm": "^8.6.10",
+    "node": ">=18",
+    "yarn": "forbidden, use pnpm",
+    "npm": "forbidden, use pnpm"
+  }
+}

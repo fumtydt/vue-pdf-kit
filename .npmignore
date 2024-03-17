@@ -1,0 +1,4 @@
+src/
+.gitignore
+.eslintrc.js
+.prettierrc.js
