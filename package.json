@@ -5,6 +5,19 @@
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
+  "keywords": [
+    "pdf",
+    "vue",
+    "pdfjs",
+    "vue3-pdf",
+    "vue3",
+    "vue2-pdf",
+    "vue2",
+    "vue-pdf"
+  ],
+  "license": "MIT",
+  "author": "Fumty13 (https://github.com/fumty13)",
+  "repository": "github:fumty13/vue-pdf-kit",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -82,8 +95,7 @@
   },
   "packageManager": "pnpm@8.6.10",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "engines": {}
 }
