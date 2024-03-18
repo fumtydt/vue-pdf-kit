@@ -2,7 +2,6 @@
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
   "version": "0.0.1",
-  "private": true,
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -21,17 +20,24 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "prepare": "husky install",
-    "commit": "git-cz",
-    "preinstall": "npx only-pnpm"
+    "commit": "git cz"
   },
   "dependencies": {
-    "pdfjs-dist": "3",
-    "vue": "^3.3.4",
-    "vue-demi": "^0.14.7"
+    "pdfjs-dist": "^3.11.174",
+    "vue-demi": "latest"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.7.2",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
+    "@commitlint/cli": "^19.2.0",
+    "@commitlint/config-conventional": "^19.1.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
     "@types/jsdom": "^21.1.1",
@@ -44,23 +50,27 @@
     "@vue/tsconfig": "^0.4.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "cz-git": "^1.9.0",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
-    "sass": "^1.63.6",
     "typescript": "~5.0.4",
     "vite": "^5.1.6",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-top-level-await": "^1.4.1",
     "vitest": "^0.32.0",
-    "vue-tsc": "^1.6.5"
+    "vue-tsc": "^1.6.5",
+    "vue": "^3.0.0"
   },
-  "peerDependencies": {
-    "vue": "^3.2.0"
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
+      "useEmoji": true
+    }
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,}": [
@@ -75,10 +85,5 @@
     "dist",
     "README.md"
   ],
-  "engines": {
-    "pnpm": "^8.6.10",
-    "node": ">=18",
-    "yarn": "forbidden, use pnpm",
-    "npm": "forbidden, use pnpm"
-  }
+  "engines": {}
 }

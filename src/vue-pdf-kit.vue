@@ -6,8 +6,9 @@
 
 <script lang="ts" setup>
 import { ref, defineProps, watch, nextTick, defineOptions } from 'vue-demi'
-import { PixelsPerInch } from 'pdfjs-dist/legacy/build/pdf'
+import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
+import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
 import 'pdfjs-dist/legacy/web/pdf_viewer.css'
 import { useInitPdfDocumnet, type InitPdfOptions } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
@@ -21,6 +22,8 @@ defineOptions({
 const total = ref(0)
 const pdfRefs = ref<HTMLDivElement[]>([])
 const pdf_viewer = ref<HTMLDivElement>()
+
+GlobalWorkerOptions.workerSrc = pdfWorker
 
 const props = defineProps<{
   source: string

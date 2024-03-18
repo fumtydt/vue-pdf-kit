@@ -1,19 +1,16 @@
 import { watchEffect, shallowReadonly, shallowRef, onUnmounted } from 'vue-demi'
 import {
   getDocument,
-  GlobalWorkerOptions,
   InvalidPDFException,
   MissingPDFException,
   UnexpectedResponseException
 } from 'pdfjs-dist/legacy/build/pdf'
-import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker?url'
+
 import type { OnProgressParameters, PDFDocumentProxy } from 'pdfjs-dist'
 import type {
   DocumentInitParameters,
   PDFDocumentLoadingTask
 } from 'pdfjs-dist/types/src/display/api'
-
-GlobalWorkerOptions.workerSrc = pdfWorker
 
 export type InitPdfOptions = {
   source: string
@@ -37,6 +34,7 @@ export function useInitPdfDocumnet({
     const options: DocumentInitParameters = {}
 
     if (!source) return
+
     if (source.startsWith('http') || source.startsWith('https') || source.startsWith('/')) {
       options.url = source
     } else {
@@ -53,7 +51,6 @@ export function useInitPdfDocumnet({
       options.password = password
     }
 
-    console.log(options)
     loadingTask.value = getDocument(options)
 
     if (!loadingTask.value) return

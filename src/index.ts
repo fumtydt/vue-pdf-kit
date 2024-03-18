@@ -1,4 +1,4 @@
-import VuePdf from './vue-pdf-kit.vue'
+import VuePdf from './vue-pdf-kit'
 import { type App } from 'vue-demi'
 
 VuePdf.install = (Vue: App) => {

@@ -5,7 +5,10 @@ import vue from '@vitejs/plugin-vue'
 import topLevelAwait from 'vite-plugin-top-level-await'
 
 export default defineConfig({
-  plugins: [vue(), topLevelAwait()],
+  plugins: [topLevelAwait()],
+  optimizeDeps: {
+    exclude: ['vue-demi']
+  },
   build: {
     lib: {
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
@@ -13,9 +16,10 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['pdfjs-dist', 'vue'],
+      external: ['vue', 'vue-demi'],
       output: {
         globals: {
+          'vue-demi': 'vueDemi',
           vue: 'Vue'
         }
       }
