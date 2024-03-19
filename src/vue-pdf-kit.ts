@@ -110,7 +110,6 @@ export default defineComponent({
     const generateId = (id: string) => {
       if (isVue2) {
         return {
-          id,
           attrs: { id }
         }
       }
