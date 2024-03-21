@@ -1,5 +1,6 @@
 # vue-pdf-kit
-A high-definition PDF viewer component for  Vue 2 & Vue 3.
+
+A high-definition PDF viewer component for Vue 2 & Vue 3.
 
 [![npm Version](https://img.shields.io/npm/v/vue-pdf-kit?style=plastic)](https://npmjs.com/package/vue-pdf-kit)
 [![npm Downloads](https://img.shields.io/npm/dm/vue-pdf-kit?style=plastic)](https://npmjs.com/package/vue-pdf-kit)
@@ -30,7 +31,7 @@ import VuePdfKit from 'vue-pdf-kit'
 </script>
 
 <template>
-  <VuePdfKit source="<url> | <base64>" enableTextLayer enableAnnotation/>
+  <VuePdfKit source="<url> | <base64>" enableTextLayer enableAnnotation />
 </template>
 ```
 
@@ -51,5 +52,13 @@ npm i @vue/composition-api
 | password         | `string`              | Any string        | Password for encrypted documents, if required      |
 | enableCMap       | `boolean`             | `true` or `false` | Enables Character Maps for accurate text rendering |
 
+### Events
+
+| Name     | Value               | Description                                                                                            |
+| -------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| progress | `0-1 number`        | Represents the current progress or completion ratio of a task or operation, expressed as a percentage. |
+| password | `{callback:()=>{}}` | Contains properties related to password handling.                                                      |
+
 ## License
+
 MIT License. Please see [LICENSE file](LICENSE) for more information.

@@ -1,12 +1,12 @@
-import { ref, watch, nextTick, defineComponent, type PropType, h, isVue2 } from 'vue-demi'
+import { ref, watch, nextTick, defineComponent, h, isVue2 } from 'vue-demi'
 import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
 import 'pdfjs-dist/legacy/web/pdf_viewer.css'
-import { useInitPdfDocumnet, type InitPdfOptions } from './hooks'
+import { useInitPdfDocument, type InitPdfOptions } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
 
-import type { PDFPageProxy } from 'pdfjs-dist'
+import type { PDFPageProxy, OnProgressParameters } from 'pdfjs-dist'
 
 GlobalWorkerOptions.workerSrc = pdfWorker
 
@@ -35,18 +35,27 @@ export default defineComponent({
     enableAnnotation: {
       type: Boolean,
       default: false
-    },
-    onProgress: {
-      type: Function as PropType<InitPdfOptions['onProgress']>
-    },
-    onPassword: {
-      type: Function as PropType<InitPdfOptions['onPassword']>
     }
+    // onProgress: {
+    //   type: Function as PropType<InitPdfOptions['onProgress']>
+    // },
+    // onPassword: {
+    //   type: Function as PropType<InitPdfOptions['onPassword']>
+    // }
   },
-  setup(props) {
+  emits: ['progress', 'password'],
+  setup(props, { emit }) {
     const total = ref(0)
 
-    const { doc } = useInitPdfDocumnet({ ...props })
+    const { doc } = useInitPdfDocument({
+      ...props,
+      onProgress: (progressParameter: OnProgressParameters) => {
+        emit('progress', progressParameter.loaded / progressParameter.total)
+      },
+      onPassword(callback) {
+        emit('password', { callback })
+      }
+    })
 
     watch(() => doc.value, render)
 
@@ -56,7 +65,7 @@ export default defineComponent({
       total.value = doc.value.numPages
       await nextTick()
 
-      const wrapper = document.querySelector(`#pdf_viwer`) as HTMLDivElement
+      const wrapper = document.querySelector(`#pdf_viewer`) as HTMLDivElement
       let wrapperWidth = 0
       if (wrapper) {
         wrapperWidth = parseFloat(window.getComputedStyle(wrapper).width)
@@ -78,7 +87,7 @@ export default defineComponent({
     }
 
     function renderPage(id: number, page: PDFPageProxy, container: HTMLDivElement, scale: number) {
-      const eventbus = new EventBus()
+      const eventBus = new EventBus()
       const pageViewPort = page.getViewport({ scale: 1 })
 
       const pdfPageViewer = new PDFPageView({
@@ -86,7 +95,7 @@ export default defineComponent({
         id,
         scale,
         defaultViewport: pageViewPort,
-        eventBus: eventbus,
+        eventBus,
         textLayerMode: props.enableTextLayer ? TextLayerMode.ENABLE : TextLayerMode.DISABLE,
         annotationMode: props.enableAnnotation
           ? AnnotationMode.ENABLE_FORMS
@@ -100,7 +109,6 @@ export default defineComponent({
     const generateId = (id: string) => {
       if (isVue2) {
         return {
-          id,
           attrs: { id }
         }
       }
@@ -110,7 +118,7 @@ export default defineComponent({
     return () =>
       h(
         'div',
-        generateId('pdf_viwer'),
+        generateId('pdf_viewer'),
         [...Array(total.value + 1).keys()].map((i) =>
           h(
             'div',

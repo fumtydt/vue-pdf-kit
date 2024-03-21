@@ -20,7 +20,7 @@ export type InitPdfOptions = {
   onPassword?: (func: (password: string) => void, passwordResponses: number) => void | undefined
 }
 
-export function useInitPdfDocumnet({
+export function useInitPdfDocument({
   source,
   password,
   enableCMap = false,

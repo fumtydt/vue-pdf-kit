@@ -1,7 +1,7 @@
 {
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -17,8 +17,9 @@
     "vue-pdf"
   ],
   "license": "MIT",
-  "author": "fumtydt (https://github.com/fumtydt)",
+  "author": "Fumtydt (https://github.com/fumtydt)",
   "repository": "github:fumtydt/vue-pdf-kit",
+  "homepage": "https://github.com/fumtydt/vue-pdf-kit?tab=readme-ov-file#vue-pdf-kit",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -35,7 +36,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "prepare": "husky install",
-    "commit": "git cz"
+    "commit": "git cz",
+    "preversion": "npm run build",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "npm publish"
   },
   "dependencies": {
     "pdfjs-dist": "^3.11.174",
@@ -64,6 +68,7 @@
     "@vue/test-utils": "^2.3.2",
     "@vue/tsconfig": "^0.4.0",
     "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^4.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "cz-git": "^1.9.0",
     "eslint": "^8.39.0",
