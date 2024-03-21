@@ -1,14 +1,4 @@
-import {
-  ref,
-  watch,
-  nextTick,
-  defineComponent,
-  type PropType,
-  h,
-  isVue2,
-  isVue3,
-  Vue2
-} from 'vue-demi'
+import { ref, watch, nextTick, defineComponent, type PropType, h, isVue2 } from 'vue-demi'
 import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'

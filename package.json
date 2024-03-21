@@ -1,10 +1,11 @@
 {
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
+  "typings": "./dist/types/index.d.ts",
   "keywords": [
     "pdf",
     "vue",
@@ -16,8 +17,8 @@
     "vue-pdf"
   ],
   "license": "MIT",
-  "author": "Fumty13 (https://github.com/fumty13)",
-  "repository": "github:fumty13/vue-pdf-kit",
+  "author": "fumtydt (https://github.com/fumtydt)",
+  "repository": "github:fumtydt/vue-pdf-kit",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -26,6 +27,7 @@
   },
   "scripts": {
     "build": "run-p type-check build-only",
+    "postbuild": "vue-tsc -p tsconfig.build.json",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
@@ -76,8 +78,8 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-top-level-await": "^1.4.1",
     "vitest": "^0.32.0",
-    "vue-tsc": "^1.6.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-tsc": "^1.6.5"
   },
   "config": {
     "commitizen": {

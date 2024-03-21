@@ -3,7 +3,7 @@ A high-definition PDF viewer component for  Vue 2 & Vue 3.
 
 [![npm Version](https://img.shields.io/npm/v/vue-pdf-kit?style=plastic)](https://npmjs.com/package/vue-pdf-kit)
 [![npm Downloads](https://img.shields.io/npm/dm/vue-pdf-kit?style=plastic)](https://npmjs.com/package/vue-pdf-kit)
-[![License](https://img.shields.io/npm/l/vue-pdf-kit?style=plastic)](https://github.com/fumty13/vue-pdf-kit/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/vue-pdf-kit?style=plastic)](https://github.com/fumtydt/vue-pdf-kit/blob/master/LICENSE)
 
 ## Features
 
