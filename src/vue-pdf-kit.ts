@@ -13,7 +13,7 @@ import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
 import 'pdfjs-dist/legacy/web/pdf_viewer.css'
-import { useInitPdfDocumnet, type InitPdfOptions } from './hooks'
+import { useInitPdfDocument, type InitPdfOptions } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
 
 import type { PDFPageProxy } from 'pdfjs-dist'
@@ -56,7 +56,7 @@ export default defineComponent({
   setup(props) {
     const total = ref(0)
 
-    const { doc } = useInitPdfDocumnet({ ...props })
+    const { doc } = useInitPdfDocument({ ...props })
 
     watch(() => doc.value, render)
 
@@ -66,7 +66,7 @@ export default defineComponent({
       total.value = doc.value.numPages
       await nextTick()
 
-      const wrapper = document.querySelector(`#pdf_viwer`) as HTMLDivElement
+      const wrapper = document.querySelector(`#pdf_viewer`) as HTMLDivElement
       let wrapperWidth = 0
       if (wrapper) {
         wrapperWidth = parseFloat(window.getComputedStyle(wrapper).width)
@@ -88,7 +88,7 @@ export default defineComponent({
     }
 
     function renderPage(id: number, page: PDFPageProxy, container: HTMLDivElement, scale: number) {
-      const eventbus = new EventBus()
+      const eventBus = new EventBus()
       const pageViewPort = page.getViewport({ scale: 1 })
 
       const pdfPageViewer = new PDFPageView({
@@ -96,7 +96,7 @@ export default defineComponent({
         id,
         scale,
         defaultViewport: pageViewPort,
-        eventBus: eventbus,
+        eventBus,
         textLayerMode: props.enableTextLayer ? TextLayerMode.ENABLE : TextLayerMode.DISABLE,
         annotationMode: props.enableAnnotation
           ? AnnotationMode.ENABLE_FORMS
@@ -119,7 +119,7 @@ export default defineComponent({
     return () =>
       h(
         'div',
-        generateId('pdf_viwer'),
+        generateId('pdf_viewer'),
         [...Array(total.value + 1).keys()].map((i) =>
           h(
             'div',
