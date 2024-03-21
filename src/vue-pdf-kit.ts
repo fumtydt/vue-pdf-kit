@@ -1,14 +1,4 @@
-import {
-  ref,
-  watch,
-  nextTick,
-  defineComponent,
-  type PropType,
-  h,
-  isVue2,
-  isVue3,
-  Vue2
-} from 'vue-demi'
+import { ref, watch, nextTick, defineComponent, h, isVue2 } from 'vue-demi'
 import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
@@ -16,7 +6,7 @@ import 'pdfjs-dist/legacy/web/pdf_viewer.css'
 import { useInitPdfDocument, type InitPdfOptions } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
 
-import type { PDFPageProxy } from 'pdfjs-dist'
+import type { PDFPageProxy, OnProgressParameters } from 'pdfjs-dist'
 
 GlobalWorkerOptions.workerSrc = pdfWorker
 
@@ -45,18 +35,27 @@ export default defineComponent({
     enableAnnotation: {
       type: Boolean,
       default: false
-    },
-    onProgress: {
-      type: Function as PropType<InitPdfOptions['onProgress']>
-    },
-    onPassword: {
-      type: Function as PropType<InitPdfOptions['onPassword']>
     }
+    // onProgress: {
+    //   type: Function as PropType<InitPdfOptions['onProgress']>
+    // },
+    // onPassword: {
+    //   type: Function as PropType<InitPdfOptions['onPassword']>
+    // }
   },
-  setup(props) {
+  emits: ['progress', 'password'],
+  setup(props, { emit }) {
     const total = ref(0)
 
-    const { doc } = useInitPdfDocument({ ...props })
+    const { doc } = useInitPdfDocument({
+      ...props,
+      onProgress: (progressParameter: OnProgressParameters) => {
+        emit('progress', progressParameter.loaded / progressParameter.total)
+      },
+      onPassword(callback) {
+        emit('password', { callback })
+      }
+    })
 
     watch(() => doc.value, render)
 
