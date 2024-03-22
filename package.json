@@ -1,11 +1,11 @@
 {
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "keywords": [
     "pdf",
     "vue",
@@ -23,8 +23,10 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
+      "require": "./dist/index.umd.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
     "build": "run-p type-check build-only",
@@ -42,12 +44,12 @@
     "postversion": "npm publish"
   },
   "dependencies": {
-    "pdfjs-dist": "^3.11.174",
-    "vue-demi": "latest"
+    "pdfjs-dist": "^3.11.174"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.7.2",
-    "vue": "^2.0.0 || >=3.0.0"
+    "vue": "^2.0.0 || >=3.0.0",
+    "vue-demi": "latest"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {

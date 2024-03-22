@@ -28,6 +28,7 @@ yarn add vue-pdf-kit
 ```vue
 <script setup>
 import VuePdfKit from 'vue-pdf-kit'
+import 'vue-pdf-kit/dist/style.css'
 </script>
 
 <template>
