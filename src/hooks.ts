@@ -15,7 +15,7 @@ import type {
 export type InitPdfOptions = {
   source: string
   password?: string | undefined
-  enableCMap?: boolean
+  cMapUrl?: string
   onProgress?: (parameter: OnProgressParameters) => void | undefined
   onPassword?: (func: (password: string) => void, passwordResponses: number) => void | undefined
 }
@@ -23,7 +23,7 @@ export type InitPdfOptions = {
 export function useInitPdfDocument({
   source,
   password,
-  enableCMap = false,
+  cMapUrl = '',
   onProgress,
   onPassword
 }: InitPdfOptions) {
@@ -41,9 +41,8 @@ export function useInitPdfDocument({
       options.data = source
     }
 
-    if (enableCMap) {
-      const url = new URL('../node_modules/pdfjs-dist/cmaps/', import.meta.url)
-      options.cMapUrl = url.href
+    if (cMapUrl) {
+      options.cMapUrl = cMapUrl
       options.cMapPacked = true
     }
 

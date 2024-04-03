@@ -3,7 +3,7 @@ import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
 import 'pdfjs-dist/legacy/web/pdf_viewer.css'
-import { useInitPdfDocument, type InitPdfOptions } from './hooks'
+import { useInitPdfDocument } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
 
 import type { PDFPageProxy, OnProgressParameters } from 'pdfjs-dist'
@@ -24,10 +24,7 @@ export default defineComponent({
       default: ''
     },
     scale: Number,
-    enableCMap: {
-      type: Boolean,
-      default: false
-    },
+    cMapUrl: String,
     enableTextLayer: {
       type: Boolean,
       default: false
