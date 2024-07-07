@@ -39,9 +39,7 @@
     "format": "prettier --write src/",
     "prepare": "husky install",
     "commit": "git cz",
-    "preversion": "npm run build",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "postversion": "npm publish"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "dependencies": {
     "pdfjs-dist": "^3.11.174"

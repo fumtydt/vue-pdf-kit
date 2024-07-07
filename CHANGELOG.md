@@ -1,45 +1,14 @@
-## 0.0.1 (2024-03-19)
+## [0.0.4](https://github.com/fumtydt/vue-pdf-kit/compare/v0.0.3...v0.0.4) (2024-07-07)
 
 
 ### Bug Fixes
 
-* :bug: pdf viwer doesn't show up in vue2 ([3a2a4e2](https://github.com/fumty13/vue-pdf-kit/commit/3a2a4e2f4ce2a23f3abb9bcc3e3b29ce30e1cbd0))
+* :bug: fixed type import issues ([de42c95](https://github.com/fumtydt/vue-pdf-kit/commit/de42c9553bae289540bb083aeb3ae9ed1d3a29a3))
 
 
+### Features
 
-## 0.0.1 (2024-03-19)
-
-
-### Bug Fixes
-
-* :bug: pdf viwer doesn't show up in vue2 ([3a2a4e2](https://github.com/fumty13/vue-pdf-kit/commit/3a2a4e2f4ce2a23f3abb9bcc3e3b29ce30e1cbd0))
-
-
-
-## 0.0.1 (2024-03-19)
-
-
-### Bug Fixes
-
-* :bug: pdf viwer doesn't show up in vue2 ([3a2a4e2](https://github.com/fumty13/vue-pdf-kit/commit/3a2a4e2f4ce2a23f3abb9bcc3e3b29ce30e1cbd0))
-
-
-
-## 0.0.1 (2024-03-19)
-
-
-### Bug Fixes
-
-* :bug: pdf viwer doesn't show up in vue2 ([3a2a4e2](https://github.com/fumty13/vue-pdf-kit/commit/3a2a4e2f4ce2a23f3abb9bcc3e3b29ce30e1cbd0))
-
-
-
-## 0.0.1 (2024-03-19)
-
-
-### Bug Fixes
-
-* :bug: pdf viwer doesn't show up in vue2 ([3a2a4e2](https://github.com/fumty13/vue-pdf-kit/commit/3a2a4e2f4ce2a23f3abb9bcc3e3b29ce30e1cbd0))
+* :sparkles: add cMapUrl attr ([00807aa](https://github.com/fumtydt/vue-pdf-kit/commit/00807aa1099a98b00ace73fb1bbf7fb7fd4297e9))
 
 
 
