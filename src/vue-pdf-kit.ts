@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'VuePdfKit',
   props: {
     source: {
-      type: String,
+      type: [ArrayBuffer, Array<number>, String],
       required: true
     },
     password: {
@@ -43,9 +43,8 @@ export default defineComponent({
   emits: ['progress', 'password'],
   setup(props, { emit }) {
     const total = ref(0)
-
     const { doc } = useInitPdfDocument({
-      ...props,
+      props,
       onProgress: (progressParameter: OnProgressParameters) => {
         emit('progress', progressParameter.loaded / progressParameter.total)
       },
@@ -94,6 +93,7 @@ export default defineComponent({
         defaultViewport: pageViewPort,
         eventBus,
         textLayerMode: props.enableTextLayer ? TextLayerMode.ENABLE : TextLayerMode.DISABLE,
+        // maxCanvasPixels: 4096 * 4096 * 2,
         annotationMode: props.enableAnnotation
           ? AnnotationMode.ENABLE_FORMS
           : AnnotationMode.DISABLE

@@ -10,7 +10,7 @@ export default defineConfig({
     exclude: ['vue-demi']
   },
   build: {
-    target: 'es2015',
+    target: 'es6',
     lib: {
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
       name: 'VuePdfKit',

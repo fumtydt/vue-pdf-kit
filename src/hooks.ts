@@ -13,17 +13,23 @@ import type {
 } from 'pdfjs-dist/types/src/display/api'
 
 export type InitPdfOptions = {
-  source: string
-  password?: string | undefined
-  cMapUrl?: string
+  // source: Ref<string>
+  // password?: string | undefined
+  // cMapUrl?: string
+  props: {
+    source: ArrayBuffer | Array<number> | string
+    password: string
+    cMapUrl?: string
+  }
   onProgress?: (parameter: OnProgressParameters) => void | undefined
   onPassword?: (func: (password: string) => void, passwordResponses: number) => void | undefined
 }
 
 export function useInitPdfDocument({
-  source,
-  password,
-  cMapUrl = '',
+  // source,
+  // password,
+  // cMapUrl = '',
+  props,
   onProgress,
   onPassword
 }: InitPdfOptions) {
@@ -33,10 +39,18 @@ export function useInitPdfDocument({
   watchEffect(async () => {
     const options: DocumentInitParameters = {}
 
+    const { source, password, cMapUrl } = props
+
     if (!source) return
 
-    if (source.startsWith('http') || source.startsWith('https') || source.startsWith('/')) {
-      options.url = source
+    if (typeof source == 'string') {
+      if (source.startsWith('http') || source.startsWith('https') || source.startsWith('/')) {
+        options.url = source
+      } else if (source.includes('base64')) {
+        options.data = window.atob(source.replace('data:application/pdf;base64,', ''))
+      } else {
+        options.data = window.atob(source)
+      }
     } else {
       options.data = source
     }
