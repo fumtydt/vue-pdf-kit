@@ -1,17 +1,17 @@
 import { ref, watch, nextTick, defineComponent, h, isVue2 } from 'vue-demi'
 import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
-import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker.min?url'
+import pdfWorker from './pdf.worker?worker&inline'
+// import pdfWorker from 'pdfjs-dist/legacy/build/pdf.worker?url'
 import 'pdfjs-dist/legacy/web/pdf_viewer.css'
 import { useInitPdfDocument } from './hooks'
 import { TextLayerMode, AnnotationMode } from './utils'
 
 import type { PDFPageProxy, OnProgressParameters } from 'pdfjs-dist'
 
-GlobalWorkerOptions.workerSrc = pdfWorker
+GlobalWorkerOptions.workerPort = new pdfWorker()
 
 const PDF_PAGE_PREFIX = 'pdf_page_'
-
 export default defineComponent({
   name: 'VuePdfKit',
   props: {
