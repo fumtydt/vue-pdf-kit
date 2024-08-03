@@ -1,7 +1,7 @@
 {
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -39,7 +39,7 @@
     "format": "prettier --write src/",
     "prepare": "husky install",
     "commit": "git cz",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r && git add CHANGELOG.md"
   },
   "dependencies": {
     "pdfjs-dist": "^3.11.174"
@@ -69,7 +69,6 @@
     "cz-conventional-changelog": "^3.3.0",
     "cz-git": "^1.9.0",
     "eslint": "^8.39.0",
-    "eslint-plugin-vue": "^9.11.0",
     "husky": "^9.0.11",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.2",
@@ -78,9 +77,7 @@
     "typescript": "~5.0.4",
     "vite": "^5.1.6",
     "vite-plugin-eslint": "^1.8.1",
-    "vitest": "^0.32.0",
-    "vue": "^3.0.0",
-    "vue-tsc": "^1.6.5"
+    "vitest": "^0.32.0"
   },
   "config": {
     "commitizen": {
