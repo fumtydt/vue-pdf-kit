@@ -1,7 +1,7 @@
 {
   "name": "vue-pdf-kit",
   "description": "A high-definition PDF preview component that supports both Vue 2 and Vue 3.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -20,7 +20,7 @@
   "author": "Fumtydt (https://github.com/fumtydt)",
   "repository": "github:fumtydt/vue-pdf-kit",
   "homepage": "https://github.com/fumtydt/vue-pdf-kit?tab=readme-ov-file#vue-pdf-kit",
-  "exports": {
+ "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs",

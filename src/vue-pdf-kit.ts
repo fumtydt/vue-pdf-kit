@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, defineComponent, h, isVue2 } from 'vue-demi'
+import { ref, watch, nextTick, defineComponent, h, isVue2, onMounted } from 'vue-demi'
 import { PixelsPerInch, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFPageView, EventBus } from 'pdfjs-dist/web/pdf_viewer'
 import pdfWorker from './pdf.worker?worker&inline'
@@ -11,7 +11,7 @@ import type { PDFPageProxy, OnProgressParameters } from 'pdfjs-dist'
 
 GlobalWorkerOptions.workerPort = new pdfWorker()
 
-const PDF_PAGE_PREFIX = 'pdf_page_'
+let PDF_VIEW_COUNT = 0
 export default defineComponent({
   name: 'VuePdfKit',
   props: {
@@ -43,6 +43,9 @@ export default defineComponent({
   emits: ['progress', 'password'],
   setup(props, { emit }) {
     const total = ref(0)
+    const pdf_viewer_id = 'pdf_viewer' + ++PDF_VIEW_COUNT
+    const pdfView = ref()
+
     const { doc } = useInitPdfDocument({
       props,
       onProgress: (progressParameter: OnProgressParameters) => {
@@ -61,12 +64,14 @@ export default defineComponent({
       total.value = doc.value.numPages
       await nextTick()
 
-      const wrapper = document.querySelector(`#pdf_viewer`) as HTMLDivElement
+      // const wrapper = document.querySelector(`#${pdf_viewer_id}`) as HTMLDivElement
+      const wrapper = pdfView.value
       let wrapperWidth = 0
       if (wrapper) {
         wrapperWidth = parseFloat(window.getComputedStyle(wrapper).width)
       }
 
+      let Fragment = null
       for (let index = 1; index <= doc.value.numPages; index++) {
         const page = await doc.value.getPage(index)
 
@@ -76,10 +81,23 @@ export default defineComponent({
             (wrapperWidth - 20) /
             (page.getViewport({ scale: 1 }).width * PixelsPerInch.PDF_TO_CSS_UNITS)
         }
-
-        const container = document.querySelector(`#${PDF_PAGE_PREFIX}${index}`) as HTMLDivElement
+        const container = document.createElement('div')
         renderPage(index, page, container, scale)
+        
+        if (!Fragment) {
+          Fragment = document.createDocumentFragment()
+        }
+
+        if (Fragment) {
+          Fragment.appendChild(container)
+        }
+
+        if ((index % 10 === 0 || index === doc.value.numPages) && Fragment) {
+          wrapper.appendChild(Fragment)
+          Fragment = null
+        }
       }
+
     }
 
     function renderPage(id: number, page: PDFPageProxy, container: HTMLDivElement, scale: number) {
@@ -103,31 +121,36 @@ export default defineComponent({
       pdfPageViewer.draw()
     }
 
-    const generateId = (id: string) => {
-      if (isVue2) {
-        return {
-          attrs: { id }
-        }
-      }
-      return { id }
-    }
+    // const generateId = (id: string) => {
+    //   if (isVue2) {
+    //     return {
+    //       attrs: { id }
+    //     }
+    //   }
+    //   return { id }
+    // }
 
     return () =>
       h(
         'div',
-        generateId('pdf_viewer'),
-        [...Array(total.value + 1).keys()].map((i) =>
-          h(
-            'div',
-            Object.assign(
-              {
-                key: i,
-                style: { position: 'relative' }
-              },
-              generateId(`${PDF_PAGE_PREFIX}${i}`)
-            )
-          )
+        Object.assign(
+          {
+            ref: pdfView
+          },
+          // generateId(pdf_viewer_id)
         )
+        // [...Array(total.value + 1).keys()].map((i) =>
+        //   h(
+        //     'div',
+        //     Object.assign(
+        //       {
+        //         key: i,
+        //         style: { position: 'relative' }
+        //       },
+        //       generateId(`${pdf_viewer_id}_${PDF_PAGE_PREFIX}${i}`)
+        //     )
+        //   )
+        // )
       )
   }
 })
